@@ -1,0 +1,12 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+
+# Terraform lock (optional but recommended to keep)
+.terraform.lock.hcl
+
+# OS files
+*.exe
+doc/
