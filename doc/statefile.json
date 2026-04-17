@@ -1,0 +1,55 @@
+{
+  "version": 4,
+  "terraform_version": "1.14.8",
+  "serial": 1,
+  "lineage": "0b9ae2ef-4691-be9b-f7a3-dc698113a64f",
+  "outputs": {},
+  "resources": [
+    {
+      "mode": "managed",
+      "type": "aws_vpc",
+      "name": "main_vpc",
+      "provider": "provider[\"registry.terraform.io/hashicorp/aws\"]",
+      "instances": [
+        {
+          "schema_version": 1,
+          "attributes": {
+            "arn": "arn:aws:ec2:ap-south-1:277707113274:vpc/vpc-0f5f49c2d56583970",
+            "assign_generated_ipv6_cidr_block": false,
+            "cidr_block": "10.0.0.0/16",
+            "default_network_acl_id": "acl-0c30c0ee0c97882a8",
+            "default_route_table_id": "rtb-0186b8ef4ddb49a89",
+            "default_security_group_id": "sg-0552efc7a17b32456",
+            "dhcp_options_id": "dopt-0ade2210d884e77ab",
+            "enable_dns_hostnames": false,
+            "enable_dns_support": true,
+            "enable_network_address_usage_metrics": false,
+            "id": "vpc-0f5f49c2d56583970",
+            "instance_tenancy": "default",
+            "ipv4_ipam_pool_id": null,
+            "ipv4_netmask_length": null,
+            "ipv6_association_id": "",
+            "ipv6_cidr_block": "",
+            "ipv6_cidr_block_network_border_group": "",
+            "ipv6_ipam_pool_id": "",
+            "ipv6_netmask_length": 0,
+            "main_route_table_id": "rtb-0186b8ef4ddb49a89",
+            "owner_id": "277707113274",
+            "region": "ap-south-1",
+            "tags": null,
+            "tags_all": {}
+          },
+          "sensitive_attributes": [],
+          "identity_schema_version": 0,
+          "identity": {
+            "account_id": "277707113274",
+            "id": "vpc-0f5f49c2d56583970",
+            "region": "ap-south-1"
+          },
+          "private": "eyJzY2hlbWFfdmVyc2lvbiI6IjEifQ=="
+        }
+      ]
+    }
+  ],
+  "check_results": null
+}
