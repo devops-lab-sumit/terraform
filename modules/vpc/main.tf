@@ -1,3 +1,5 @@
+//calls modules
+
 resource "aws_vpc" "main_vpc" {
     //cidr_block = "10.0.0.0/16"
     cidr_block = var.vpc_cidr
@@ -9,6 +11,8 @@ resource "aws_vpc" "main_vpc" {
    
     }
 }
+
+//public subnet
 resource "aws_subnet" "my_public_subnet" {
     for_each = toset(var.public_subnets)
 //    for_each = {
@@ -22,10 +26,12 @@ resource "aws_subnet" "my_public_subnet" {
     map_public_ip_on_launch = true
     
     tags={
-        Name = "public-subnet-${each.value}"
+        Name = "public-subnet-${replace(each.value,"/","-")}"
     }
 
 }
+
+//internet gateway attached to vpc
 resource "aws_internet_gateway" "igw" {
     vpc_id = aws_vpc.main_vpc.id
 
@@ -34,6 +40,7 @@ resource "aws_internet_gateway" "igw" {
     }
 }
 
+//public route table for outbound traffic and in vpc
 resource "aws_route_table" "public_rt"{
     vpc_id = aws_vpc.main_vpc.id
     route{
@@ -46,6 +53,7 @@ resource "aws_route_table" "public_rt"{
     }
 }
 
+//route table attachment to public subnet
 resource "aws_route_table_association" "public_assoc" {
     for_each = aws_subnet.my_public_subnet
     subnet_id = each.value.id
@@ -53,14 +61,17 @@ resource "aws_route_table_association" "public_assoc" {
     route_table_id = aws_route_table.public_rt.id
 }
 
+//private subnet in vpc
 resource "aws_subnet" "my_private_subnet" {
     vpc_id = aws_vpc.main_vpc.id
-    cidr_block = "10.0.2.0/24"
+    for_each = { for idx, cidr in var.private_subnets : idx => cidr}
+    cidr_block = each.value
+    //cidr_block = "10.0.2.0/24"
     availability_zone = "ap-south-1a"
     map_public_ip_on_launch = false
 
     tags={
-        Name ="private-subnet-1a"
+        Name ="private-subnet-${replace(each.value,"/","-")}"
     }
 }
 
@@ -89,12 +100,13 @@ resource "aws_route_table" "private_rt" {
   }
 
   tags = {
-    Name = "private-rt"
+    Name = "private-route-table"
   }
 }
 
 resource "aws_route_table_association" "private_assoc" {
-  subnet_id      = aws_subnet.my_private_subnet.id
+  for_each = aws_subnet.my_private_subnet 
+  subnet_id      = each.value.id
   route_table_id = aws_route_table.private_rt.id
 }
 

@@ -1,3 +1,5 @@
+//input defination for module main.tf
+
 variable "vpc_cidr"{
     type = string
 }
@@ -8,6 +10,6 @@ variable "public_subnets" {
 
 //public_subnet=["10.0.1.0/24","10.0.2.0/24"]
 
-//variable "private_subnets" {
-//    type =list(string)
-//}
+variable "private_subnets" {
+   type =list(string)
+}
